@@ -6,7 +6,11 @@
   <title>Friend Finder</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  </head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+
+</head>
 
 <body>
 
@@ -109,48 +113,48 @@
     <span type="submit" class="glyphicon glyphicon glyphicon-glass"></span> Submit</button></a>
 
     <hr>
-    <footer class="footer">
+    <footer>
             <div class="container">
                 <p>| <a href="api/friendlist">API Friends List</a> || <a href="https://github.com/ashamrock">GitHub Repo</a> |</p>
             </div>
            <input type="hidden" name="total" id="total"/>
-          </footer>
-
+          </footer>   
   </div>
 
-<script type="text/javascript">
+	<div id="mod" class="modal">
+		<div class="modal-content">
+			<!-- <h5 id="#name"></h5>
+			<img id="#photo" width="650" src=""> -->
+		</div>
+		<div class="modal-footer">
+			<a href="/survey" >Just one more try...</a>
+		</div>
+	</div>
 
+<script type="text/javascript">
 $(".rad").click(function() {
-  var total = 0;
+  var total = "";
   $(".rad:checked").each(function() { total += +this.value; });
   $("#total").val(total);
   console.log(total)
 });
 
 $("#submit").on("click", function(event) {
-      event.preventDefault();
       
       var newFriend = {
 				name: $("#name").val().trim(),
 				photo: $("#photo").val().trim(),
 				score: $("#total").val().trim(),	
       };
-    
-      $('#myModal').on('shown.bs.modal', function () {
-  $('#myInput').focus()
-})
-
-
-
 
     $.post('/api/friendList', newFriend)
       		.done(function(data) {
-          });
-          
+          })
 
+          $('#mod').modal('open');
+    });
 
-		});
-
-	</script>
+  </script>
+  
 </body>
 </html>
